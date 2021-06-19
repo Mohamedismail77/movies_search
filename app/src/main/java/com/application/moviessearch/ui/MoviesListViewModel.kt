@@ -28,7 +28,7 @@ class MoviesListViewModel @ViewModelInject constructor (private val moviesReposi
     }
 
     fun searchMovie(query: CharSequence):Flow<PagingData<Movie>> {
-        val newResult: Flow<PagingData<Movie>> = moviesRepository.getMoviesByQuery(query.toString())
+        val newResult: Flow<PagingData<Movie>> = moviesRepository.getMoviesByQuery("%${query.toString()}%")
             .cachedIn(viewModelScope)
         currentSearchResult = newResult
         return newResult

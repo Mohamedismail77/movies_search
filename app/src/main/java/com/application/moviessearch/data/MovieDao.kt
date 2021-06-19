@@ -14,7 +14,7 @@ interface MovieDao {
     fun getAllMovies():PagingSource<Int, Movie>
 
 
-    @Query("SELECT * FROM movies WHERE title LIKE :queryString")
+    @Query("SELECT * FROM movies WHERE title LIKE :queryString OR voteAverage LIKE :queryString")
     fun moviesByQuery(queryString: String): PagingSource<Int, Movie>
 
 
