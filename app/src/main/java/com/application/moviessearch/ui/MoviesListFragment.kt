@@ -9,8 +9,10 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.application.moviessearch.R
+import com.application.moviessearch.data.Movie
 import com.application.moviessearch.databinding.FragmentMoviesListBinding
 import com.application.moviestest.MoviesLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,7 +20,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
+class MoviesListFragment : Fragment(R.layout.fragment_movies_list),
+    MoviesAdapter.OnItemClickListener {
 
     private val moviesListViewModel by viewModels<MoviesListViewModel>()
 
@@ -29,7 +32,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMoviesListBinding.bind(view)
 
-        val adapter = MoviesAdapter()
+        val adapter = MoviesAdapter(this)
 
         binding.apply {
             recyclerView.setHasFixedSize(true)
@@ -74,6 +77,11 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
             }
         }
 
+    }
+
+    override fun onItemClick(movie: Movie) {
+        val action = MoviesListFragmentDirections.actionMoviesListFragmentToMovieDetailsFragment(movie)
+        findNavController().navigate(action)
     }
 
     private fun showEmptyList(show: Boolean) {
