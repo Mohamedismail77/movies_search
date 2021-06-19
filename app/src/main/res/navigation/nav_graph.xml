@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/moviesListFragment"
         android:name="com.application.moviessearch.ui.MoviesListFragment"
-        android:label="fragment_movies_list"
-        tools:layout="@layout/fragment_movies_list" >
+        android:label="Movies List"
+        tools:layout="@layout/fragment_movies_list">
         <action
             android:id="@+id/action_moviesListFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
@@ -20,8 +20,8 @@
     <fragment
         android:id="@+id/movieDetailsFragment"
         android:name="com.application.moviessearch.ui.MovieDetailsFragment"
-        android:label="fragment_movie_details"
-        tools:layout="@layout/fragment_movie_details" >
+        android:label="Movie Details"
+        tools:layout="@layout/fragment_movie_details">
         <argument
             android:name="movie"
             app:argType="com.application.moviessearch.data.Movie" />
@@ -29,8 +29,8 @@
     <fragment
         android:id="@+id/movieSearchFragment"
         android:name="com.application.moviessearch.ui.MovieSearchFragment"
-        android:label="fragment_movie_search"
-        tools:layout="@layout/fragment_movie_search" >
+        android:label="Movies Search"
+        tools:layout="@layout/fragment_movie_search">
         <action
             android:id="@+id/action_movieSearchFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
