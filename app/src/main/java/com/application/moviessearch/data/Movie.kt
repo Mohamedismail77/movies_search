@@ -1,13 +1,14 @@
 package com.application.moviessearch.data
 
-data class Movie(
-    val backdrop_path: String,
-    val id: Long,
-    val originalTitle: String,
-    val overview: String,
-    val posterPath: String,
-    val releaseDate: String,
-    val title: String,
-    val voteAverage: Double,
+import com.google.gson.annotations.SerializedName
 
-)
+data class Movie(
+    @field:SerializedName("backdrop_path") val backdropPath: String,
+    val id: Long,
+    @field:SerializedName("original_title")val originalTitle: String,
+    val overview: String,
+    @field:SerializedName("poster_path")val posterPath: String,
+    @field:SerializedName("release_date")val releaseDate: String,
+    val title: String,
+    @field:SerializedName("vote_average")val voteAverage: Double,
+    )
