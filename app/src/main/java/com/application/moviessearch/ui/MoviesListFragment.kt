@@ -1,23 +1,32 @@
 package com.application.moviessearch.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.*
+import android.widget.EditText
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.application.moviessearch.R
 import com.application.moviessearch.data.Movie
 import com.application.moviessearch.databinding.FragmentMoviesListBinding
 import com.application.moviestest.MoviesLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.onStart
 
 @AndroidEntryPoint
 class MoviesListFragment : Fragment(R.layout.fragment_movies_list),
@@ -27,6 +36,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list),
 
     private var _binding: FragmentMoviesListBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,11 +87,27 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list),
             }
         }
 
+        setHasOptionsMenu(true)
+
     }
 
     override fun onItemClick(movie: Movie) {
         val action = MoviesListFragmentDirections.actionMoviesListFragmentToMovieDetailsFragment(movie)
         findNavController().navigate(action)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.searh_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == R.id.action_search){
+            findNavController().navigate(R.id.action_moviesListFragment_to_movieSearchFragment)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun showEmptyList(show: Boolean) {
@@ -93,6 +119,9 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list),
             binding.recyclerView.visibility = View.VISIBLE
         }
     }
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -7,4 +7,6 @@
     <string name="movies_list_retry">Retry</string>
     <string name="movies_list_no_results">No Result Found</string>
     <string name="movie_details_poster">Movie Poster</string>
+    <string name="menu_search">Search</string>
+    <string name="movie_search_title_hint">Movie Title</string>
 </resources>

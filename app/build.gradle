@@ -73,6 +73,12 @@ dependencies {
     //Glid
     implementation "com.github.bumptech.glide:glide:$glideVersion"
 
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
+    //Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
 }

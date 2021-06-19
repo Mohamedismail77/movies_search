@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.application.moviessearch.api.MoviesApi
 import com.application.moviessearch.data.MoviesRepository.Companion.MAX_API_PAGES
 import com.application.moviessearch.data.MoviesRepository.Companion.PAGE_SIZE
+import com.application.moviestest.MovieDB
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -12,7 +13,8 @@ private const val MOVIE_DB_STARTING_INDEX_PAGE = 1
 
 
 class MoviesPagingSource(
-        private val apiService: MoviesApi
+        private val apiService: MoviesApi,
+        private val movieDB: MovieDB
     ): PagingSource<Int, Movie>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
@@ -27,6 +29,7 @@ class MoviesPagingSource(
                 // ensure we're not requesting duplicating items, at the 2nd request
                 page + (params.loadSize / PAGE_SIZE)
             }
+            movieDB.moviesDao().insertAll(moviesPage)
             LoadResult.Page(
                     data = moviesPage,
                     prevKey = if(page == MOVIE_DB_STARTING_INDEX_PAGE) null else page -1,
