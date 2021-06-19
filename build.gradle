@@ -24,3 +24,16 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+// Define versions in a single place
+ext {
+    // Sdk and tools
+    minSdkVersion = 21
+    targetSdkVersion = 29
+    compileSdkVersion = 29
+
+    // App dependencies
+    nav_version = "2.3.5"
+    pagingVersion = '3.0.0'
+
+}
